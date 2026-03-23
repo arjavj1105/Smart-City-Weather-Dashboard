@@ -1,73 +1,166 @@
-# Smart City Weather Dashboard
+# 🌦️ Smart City Weather Dashboard
 
-## Overview
-Hi, I’m Arjav Jain.  
-This project is a Smart City Weather Dashboard that provides real-time weather updates along with simple suggestions like what to wear or carry based on current weather conditions. The aim of this project is to make weather data more useful and practical for everyday decision-making.
+A weather web app that goes beyond just showing the temperature — it tells you **what to wear**, whether to **carry an umbrella**, and what the next 5 days look like. Built with plain HTML, CSS, and JavaScript.
 
 ---
 
-## Features
+## 🔗 Live Demo
 
-- Search weather by city name  
-- 5-day weather forecast  
-- Dynamic weather icons based on conditions  
-- Smart suggestions (e.g., carry umbrella if rain > 20%)  
-- Background color changes based on temperature (blue for cold, orange for hot)  
-- Automatic weather detection using browser Geolocation API  
+👉 [Click here to view the app](https://arjavj1105.github.io/Smart-City-Weather-Dashboard)
 
 ---
 
-## Tech Stack
+## 💡 About the Project
 
-- HTML  
-- CSS  
-- JavaScript  
-- OpenWeatherMap API  
+I built this to practice working with real-world APIs and improve my JavaScript skills. The goal wasn't just to display weather data — I wanted the app to actually be *useful*. So I added outfit suggestions, rain alerts, and a background that visually reacts to how hot or cold it is outside.
 
 ---
 
-## API Used
+## ✨ Features
 
-This project uses the OpenWeatherMap API:  
-https://openweathermap.org/api  
-
----
-
-## How It Works
-
-1. User enters a city name or allows location access  
-2. Weather data is fetched from OpenWeatherMap API  
-3. The application displays:
-   - Temperature  
-   - Weather condition  
-   - 5-day forecast  
-4. Based on conditions, simple suggestions are generated  
-5. UI updates dynamically (icons and background colors)  
+- 📍 **Auto-detects your location** on load using the browser's Geolocation API
+- 👕 **"What to Wear" advice** — suggestions based on current temperature
+- ☂️ **Rain alert** — notifies you if rain probability crosses 20%
+- 📅 **5-day forecast** — a quick look at the week ahead
+- 🎨 **Dynamic background** — shifts from blue (cold) to orange (hot) based on temp
+- 🌩️ **Weather icons** — update automatically based on live conditions
+- 🔍 **City search** — look up weather anywhere in the world
 
 ---
 
-## Setup Instructions
+## 🛠️ Tech Stack
 
-1. Clone the repository  
-   ```bash
-   git clone https://github.com/your-username/weather-dashboard.git
-Open the project folder
-cd weather-dashboard
-Get your API key from OpenWeatherMap
-Add your API key in script.js
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- [OpenWeatherMap API](https://openweathermap.org/api)
+- Browser Geolocation API
+
+---
+
+## 🌐 API Reference
+
+This project uses the **OpenWeatherMap API** (free tier).
+
+**Base URL:**
+```
+https://api.openweathermap.org/data/2.5/
+```
+
+### Endpoints Used
+
+| Endpoint | What it does |
+|----------|--------------|
+| `GET /weather?q={city}&appid={key}` | Fetch current weather by city name |
+| `GET /forecast?q={city}&appid={key}` | Fetch 5-day / 3-hour forecast by city |
+| `GET /weather?lat={lat}&lon={lon}&appid={key}` | Fetch weather by coordinates (used for geolocation) |
+
+### Example Request
+
+```javascript
 const API_KEY = "your_api_key_here";
-Open index.html in your browser
-Project Structure
-weather-dashboard/
+const city = "Mumbai";
+
+const res = await fetch(
+  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+);
+const data = await res.json();
+```
+
+### Example Response (Simplified)
+
+```json
+{
+  "name": "Mumbai",
+  "main": {
+    "temp": 31.5,
+    "humidity": 78
+  },
+  "weather": [
+    {
+      "id": 804,
+      "main": "Clouds",
+      "description": "overcast clouds",
+      "icon": "04d"
+    }
+  ],
+  "wind": {
+    "speed": 4.2
+  }
+}
+```
+
+### Weather Icons
+
+OpenWeatherMap provides icons via:
+```
+https://openweathermap.org/img/wn/{icon}@2x.png
+```
+
+Example:
+```html
+<img src="https://openweathermap.org/img/wn/04d@2x.png" alt="Cloudy" />
+```
+
+> 🔑 Get your free API key at [openweathermap.org/api](https://openweathermap.org/api) — the free tier supports up to **60 calls/minute**, which is more than enough for this project.
+
+---
+
+## ⚙️ Getting Started
+
+```bash
+git clone https://github.com/arjavj1105/Smart-City-Weather-Dashboard.git
+cd Smart-City-Weather-Dashboard
+```
+
+Open `index.html` directly in your browser — no installs needed.
+
+> Add your OpenWeatherMap API key in `config.js` before running:
+> ```javascript
+> const API_KEY = "your_api_key_here";
+> ```
+
+---
+
+## 📁 Project Structure
+
+```
+Smart-City-Weather-Dashboard/
 │
-├── index.html
-├── style.css
-├── script.js
-└── README.md
-Future Improvements
-Add hourly forecast
-Improve UI animations
-Add dark/light mode
-Store recent searches
-Conclusion
-This project demonstrates how real-time API data, JavaScript, and responsive UI design can be combined to build a practical and user-friendly application. It highlights the use of external APIs, browser features like Geolocation, and dynamic UI updates to enhance user experience.
+├── index.html       # App structure
+├── style.css        # Styling & dynamic theme
+├── app.js           # API calls, geolocation, DOM logic
+├── config.js        # API key (add yours here)
+└── assets/
+    └── icons/       # Weather icons
+```
+
+---
+
+## 📚 What I Learned
+
+- How to fetch and handle data from a public REST API
+- Using `async/await` and proper error handling with `try/catch`
+- Working with the browser Geolocation API
+- Dynamically updating styles and content based on API response
+
+---
+
+## 🚧 Planned Improvements
+
+- [ ] Dark mode toggle
+- [ ] Switch between °C and °F
+- [ ] Hourly forecast view
+- [ ] Save last searched city using `localStorage`
+
+---
+
+## ✅ Conclusion
+
+This project was a great way for me to move past tutorials and actually build something from scratch. Connecting a live API, handling real data, and making the UI react dynamically taught me more than any course exercise. It's not perfect, but it works — and I'm proud of it.
+
+If you have any feedback or suggestions, feel free to open an issue or reach out!
+
+---
+
+*Made by [Arjav](https://github.com/arjavj1105) · Still learning, building as I go 🙂*
