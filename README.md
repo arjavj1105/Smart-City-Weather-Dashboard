@@ -1,47 +1,60 @@
-Smart City Weather Dashboard
-Overview
-The Smart City Weather Dashboard is a web application that provides real-time weather updates along with intelligent lifestyle suggestions. Instead of only displaying temperature, the application also gives "What to Wear" advice based on weather conditions, helping users make better daily decisions.
-Features
-City Search
-Users can search weather details for any city.
-5-Day Weather Forecast
-Displays upcoming weather conditions for better planning.
-Dynamic Weather Icons
-Icons automatically change based on weather conditions (e.g., sunny, rainy, cloudy).
-Smart Suggestions
-Provides recommendations like:
-Carry an umbrella if rain probability is high
-Wear warm clothes if temperature is low
-Responsive UI
-Background colors dynamically change based on temperature:
-Blue for cold weather
-Orange for hot weather
-Geolocation Support
-Automatically fetches and displays weather data for the user’s current location using the browser’s Geolocation API.
-Tech Stack
-HTML
-CSS
-JavaScript
-OpenWeatherMap API
-API Used
-This project uses the OpenWeatherMap API to fetch real-time weather data.
-API Link: https://openweathermap.org/api
-How It Works
-User enters a city name or allows location access.
-The application fetches weather data from the API.
-Data is processed and displayed with:
-Temperature
-Weather conditions
-Forecast
-Based on conditions, suggestions are generated.
-UI updates dynamically (icons and background colors).
-Setup Instructions
-Clone the repository
-git clone <your-repo-link>
-Navigate to the project folder
+# Smart City Weather Dashboard
+
+## Overview
+Hi, I’m Arjav Jain.  
+This project is a Smart City Weather Dashboard that provides real-time weather updates along with simple suggestions like what to wear or carry based on current weather conditions. The aim of this project is to make weather data more useful and practical for everyday decision-making.
+
+---
+
+## Features
+
+- Search weather by city name  
+- 5-day weather forecast  
+- Dynamic weather icons based on conditions  
+- Smart suggestions (e.g., carry umbrella if rain > 20%)  
+- Background color changes based on temperature (blue for cold, orange for hot)  
+- Automatic weather detection using browser Geolocation API  
+
+---
+
+## Tech Stack
+
+- HTML  
+- CSS  
+- JavaScript  
+- OpenWeatherMap API  
+
+---
+
+## API Used
+
+This project uses the OpenWeatherMap API:  
+https://openweathermap.org/api  
+
+---
+
+## How It Works
+
+1. User enters a city name or allows location access  
+2. Weather data is fetched from OpenWeatherMap API  
+3. The application displays:
+   - Temperature  
+   - Weather condition  
+   - 5-day forecast  
+4. Based on conditions, simple suggestions are generated  
+5. UI updates dynamically (icons and background colors)  
+
+---
+
+## Setup Instructions
+
+1. Clone the repository  
+   ```bash
+   git clone https://github.com/your-username/weather-dashboard.git
+Open the project folder
 cd weather-dashboard
 Get your API key from OpenWeatherMap
-Add your API key in the JavaScript file
+Add your API key in script.js
 const API_KEY = "your_api_key_here";
 Open index.html in your browser
 Project Structure
@@ -54,7 +67,7 @@ weather-dashboard/
 Future Improvements
 Add hourly forecast
 Improve UI animations
-Add multiple theme modes
+Add dark/light mode
 Store recent searches
 Conclusion
-This project demonstrates how real-time APIs, dynamic UI, and browser features like Geolocation can be combined to create a practical and user-friendly weather application.
+This project demonstrates how real-time API data, JavaScript, and responsive UI design can be combined to build a practical and user-friendly application. It highlights the use of external APIs, browser features like Geolocation, and dynamic UI updates to enhance user experience.
