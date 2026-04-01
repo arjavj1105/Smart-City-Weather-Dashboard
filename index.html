@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart City Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌦️ Smart City Weather</h1>
+            <div class="search-box">
+                <input type="text" id="city-input" placeholder="Enter city name..." spellcheck="false">
+                <button id="search-btn">Search</button>
+            </div>
+            <div id="error-msg" class="error-msg"></div>
+        </header>
+
+        <main id="weather-dashboard" class="hidden">
+            <!-- Loading State -->
+            <div id="loading" class="loading hidden">Loading weather data...</div>
+
+            <!-- Current Weather Section -->
+            <section id="current-weather" class="current-weather">
+                <div class="weather-main">
+                    <h2 id="city-name">City Name</h2>
+                    <p id="current-date"></p>
+                    <div class="temp-container">
+                        <img id="weather-icon" src="" alt="Weather Icon">
+                        <span id="temperature">--</span><span class="unit">°C</span>
+                    </div>
+                    <p id="weather-description" class="description">--</p>
+                </div>
+                
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <span class="label">Humidity</span>
+                        <span id="humidity" class="value">--%</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Wind Speed</span>
+                        <span id="wind-speed" class="value">-- km/h</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5-Day Forecast Section -->
+            <section class="forecast-section">
+                <h3>5-Day Forecast</h3>
+                <div id="forecast-container" class="forecast-grid">
+                    <!-- Forecast cards will be injected here -->
+                </div>
+            </section>
+        </main>
+
+        <footer id="initial-state">
+            <p>Enter a city name or allow location access to see the weather.</p>
+        </footer>
+    </div>
+
+    <!-- Script files -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
