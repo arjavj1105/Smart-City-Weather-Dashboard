@@ -1,104 +1,93 @@
 # 🌦️ Smart City Weather Dashboard
 
-A weather app that shows current conditions, a 5-day forecast, and tells you what to wear based on the temperature.
+A simple and interactive weather web app that shows real-time weather data along with smart insights like "What to Wear" suggestions based on conditions.
 
 ---
 
 ## 🔗 Live Demo
 
-👉 [View Here](https://arjavj1105.github.io/Smart-City-Weather-Dashboard)
+👉 (Add your deployed link here)
 
 ---
 
-## 💡 About
+## 💡 About the Project
 
-I built this to get hands-on experience with APIs and JavaScript. The idea was to make a weather app that's actually useful — one that gives outfit suggestions and warns you about rain, not just shows numbers.
+This project was built to understand how real-world web applications work using APIs and JavaScript.
 
----
-
-## ✨ Features
-
-- Auto-detects your location and loads local weather
-- Shows temperature, humidity, wind speed, and condition
-- "What to Wear" tip based on current temperature
-- Rain alert if precipitation chance is above 20%
-- 5-day forecast
-- Background color changes with temperature (blue = cold, orange = hot)
+Instead of just showing temperature, this app gives a better user experience by:
+- Showing a 5-day forecast
+- Providing weather-based suggestions
+- Allowing users to filter and sort data
+- Supporting dark mode
 
 ---
 
-## 🛠️ Built With
+## ⚙️ Features
+
+### 🌍 Weather Data
+- Search weather by city name
+- Automatically detect user location using Geolocation API
+- Display current weather (temperature, humidity, wind speed)
+- Show 5-day forecast
+
+---
+
+### 🔍 Interactivity (Milestone 3)
+
+#### 🔎 Search
+- Users can search any city
+
+#### 🎯 Filtering (using `filter()`)
+- Filter forecast by:
+  - Rainy
+  - Cloudy
+  - Hot (≥ 30°C)
+  - Cold (< 20°C)
+
+#### 🔃 Sorting (using `sort()`)
+- Sort forecast by:
+  - Temperature (High → Low)
+  - Temperature (Low → High)
+  - Day (A → Z)
+
+#### 🎨 Dynamic Rendering (using `map()`)
+- Forecast cards are generated dynamically using `map()`
+
+#### 🌙 Dark Mode
+- Toggle between light and dark theme
+
+---
+
+## 🧠 Concepts Used
+
+- Fetch API for API calls
+- JavaScript Array Higher Order Functions:
+  - `map()`
+  - `filter()`
+  - `sort()`
+- DOM Manipulation
+- Event Handling
+- Responsive Design
+
+---
+
+## 🔌 API Used
+
+- OpenWeatherMap API  
+👉 https://openweathermap.org/api
+
+---
+
+## 🛠️ Tech Stack
 
 - HTML
 - CSS
-- JavaScript
-- [OpenWeatherMap API](https://openweathermap.org/api)
+- JavaScript (Vanilla JS)
 
 ---
 
-## 🌐 API Used
+## 🚀 How to Run Locally
 
-**OpenWeatherMap** — free weather API
-
-```
-Base URL: https://api.openweathermap.org/data/2.5/
-```
-
-Endpoints used:
-
-- `/weather?q={city}` — current weather by city
-- `/forecast?q={city}` — 5-day forecast
-- `/weather?lat={lat}&lon={lon}` — weather by coordinates (for geolocation)
-
-Example:
-
-```javascript
-const response = await fetch(
-  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-);
-const data = await response.json();
-```
-
-Get a free API key at [openweathermap.org](https://openweathermap.org/api).
-
----
-
-## ⚙️ How to Run
-
+1. Clone the repository:
 ```bash
 git clone https://github.com/arjavj1105/Smart-City-Weather-Dashboard.git
-cd Smart-City-Weather-Dashboard
-```
-
-Open `index.html` in your browser. Add your API key in `config.js` first:
-
-```javascript
-const API_KEY = "your_key_here";
-```
-
----
-
-## 📚 What I Learned
-
-- How to use `fetch()` to call an API
-- Reading and using JSON data
-- Browser Geolocation API
-- Updating the DOM dynamically with JavaScript
-
----
-
-## 🚧 Planned Improvements
-
-- [ ] °C / °F toggle
-- [ ] Better mobile layout
-- [ ] Hourly forecast view
-
----
-
-## ✅ Conclusion
-
-This project helped me understand how real APIs work and how to build something useful around them. There was a lot of trial and error, but that's where the actual learning happened.
-
----
-
-*Made by [Arjav](https://github.com/arjavj1105)*
