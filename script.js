@@ -11,6 +11,14 @@ const initialState = document.getElementById('initial-state');
 const loadingIndicator = document.getElementById('loading');
 const errorMessage = document.getElementById('error-msg');
 const forecastContainer = document.getElementById('forecast-container');
+const darkModeToggle = document.getElementById('dark-mode-toggle');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const sortDropdown = document.getElementById('sort-dropdown');
+
+// State Variables
+let forecastDays = [];
+let currentFilter = "all";
+let currentSort = "default";
 
 // Event Listeners
 searchBtn.addEventListener('click', () => {
@@ -27,6 +35,28 @@ cityInput.addEventListener('keypress', (e) => {
             getWeatherData(city);
         }
     }
+});
+
+darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    darkModeToggle.textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+});
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        // Active highlight
+        filterBtns.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        
+        currentFilter = e.target.dataset.filter;
+        renderForecastCards();
+    });
+});
+
+sortDropdown.addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    renderForecastCards();
 });
 
 // Main Function to Fetch All Weather Data
@@ -88,31 +118,66 @@ function updateCurrentWeatherUI(data) {
     updateBodyBackground(data.main.temp);
 }
 
-// Function to Update 5-Day Forecast
+// Function to Update 5-Day Forecast Data and trigger render
 function updateForecastUI(data) {
-    forecastContainer.innerHTML = ''; // Clear previous cards
+    // API provides data every 3 hours. 
+    // We want to pick one point per day (e.g., around 12:00 PM) using filter.
+    const dailyForecastRaw = data.list.filter(item => item.dt_txt.includes("12:00:00"));
 
-    // Filter forecast data - API provides data every 3 hours. 
-    // We want to pick one point per day (e.g., around 12:00 PM).
-    const dailyForecast = data.list.filter(item => item.dt_txt.includes("12:00:00"));
-
-    dailyForecast.sort((a, b) => new Date(a.dt_txt) - new Date(b.dt_txt));
-
-    dailyForecast.forEach(day => {
+    // Map into clean structure
+    forecastDays = dailyForecastRaw.map(day => {
         const dateObj = new Date(day.dt_txt);
-        const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
-        const temp = Math.round(day.main.temp);
-        const iconCode = day.weather[0].icon;
-
-        const card = `
-            <div class="forecast-card">
-                <span class="date">${dayName}</span>
-                <img class="icon" src="https://openweathermap.org/img/wn/${iconCode}.png" alt="${day.weather[0].description}">
-                <span class="temp">${temp}°C</span>
-            </div>
-        `;
-        forecastContainer.innerHTML += card;
+        return {
+            dayName: dateObj.toLocaleDateString('en-US', { weekday: 'short' }),
+            fullDate: day.dt_txt,
+            temp: Math.round(day.main.temp),
+            icon: day.weather[0].icon,
+            description: day.weather[0].description.toLowerCase()
+        };
     });
+
+    renderForecastCards();
+}
+
+// Render Function - Uses filter, sort, and map to display cards
+function renderForecastCards() {
+    let processedData = [...forecastDays];
+
+    // Apply filter
+    if (currentFilter !== 'all') {
+        processedData = processedData.filter(day => {
+            if (currentFilter === 'rainy') return day.description.includes('rain');
+            if (currentFilter === 'cloudy') return day.description.includes('cloud');
+            if (currentFilter === 'hot') return day.temp >= 30;
+            if (currentFilter === 'cold') return day.temp < 20;
+            return true;
+        });
+    }
+
+    // Apply sort
+    processedData.sort((a, b) => {
+        if (currentSort === 'temp-high') return b.temp - a.temp;
+        if (currentSort === 'temp-low') return a.temp - b.temp;
+        if (currentSort === 'day-az') return a.dayName.localeCompare(b.dayName);
+        // Default: Sort by date
+        return new Date(a.fullDate) - new Date(b.fullDate);
+    });
+
+    // Render using map and innerHTML
+    if (processedData.length === 0) {
+        forecastContainer.innerHTML = '<p class="no-data">No forecast matches selected filter.</p>';
+        return;
+    }
+
+    const htmlCards = processedData.map(day => `
+        <div class="forecast-card">
+            <span class="date">${day.dayName}</span>
+            <img class="icon" src="https://openweathermap.org/img/wn/${day.icon}.png" alt="${day.description}">
+            <span class="temp">${day.temp}°C</span>
+        </div>
+    `).join('');
+
+    forecastContainer.innerHTML = htmlCards;
 }
 
 // Geolocation Integration (Task 9)
