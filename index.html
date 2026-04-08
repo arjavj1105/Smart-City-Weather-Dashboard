@@ -11,7 +11,10 @@
 <body>
     <div class="container">
         <header>
-            <h1>🌦️ Smart City Weather</h1>
+            <div class="header-top">
+                <h1>🌦️ Smart City Weather</h1>
+                <button id="dark-mode-toggle" class="theme-toggle">🌙 Dark Mode</button>
+            </div>
             <div class="search-box">
                 <input type="text" id="city-input" placeholder="Enter city name..." spellcheck="false">
                 <button id="search-btn">Search</button>
@@ -50,6 +53,26 @@
             <!-- 5-Day Forecast Section -->
             <section class="forecast-section">
                 <h3>5-Day Forecast</h3>
+                
+                <div class="forecast-controls">
+                    <div class="filters">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="rainy">Rainy</button>
+                        <button class="filter-btn" data-filter="cloudy">Cloudy</button>
+                        <button class="filter-btn" data-filter="hot">Hot</button>
+                        <button class="filter-btn" data-filter="cold">Cold</button>
+                    </div>
+                    <div class="sort-control">
+                        <label for="sort-dropdown" class="label">Sort by:</label>
+                        <select id="sort-dropdown">
+                            <option value="default">Default</option>
+                            <option value="temp-high">Temp: High → Low</option>
+                            <option value="temp-low">Temp: Low → High</option>
+                            <option value="day-az">Day: A-Z</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div id="forecast-container" class="forecast-grid">
                     <!-- Forecast cards will be injected here -->
                 </div>
