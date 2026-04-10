@@ -5,11 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart City Weather Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts for better typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts for premium typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <!-- API Setup Modal (Ultra-Professional) -->
+    <div id="setup-modal" class="setup-overlay hidden">
+        <div class="setup-card">
+            <div class="setup-icon">🔑</div>
+            <h2>Unlock Your Dashboard</h2>
+            <p>To view real-time weather data, please enter your free OpenWeatherMap API Key. This will be stored locally in your browser.</p>
+            <input type="password" id="api-key-input" placeholder="Paste your API key here...">
+            <button id="save-key-btn">Get Started</button>
+            <a href="https://openweathermap.org/api" target="_blank" class="get-key-link">Don't have a key? Get one for free here</a>
+        </div>
+    </div>
+
+    <div class="container fade-in">
         <header>
             <div class="header-top">
                 <h1>🌦️ Smart City Weather</h1>

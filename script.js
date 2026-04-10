@@ -15,81 +15,118 @@ const darkModeToggle = document.getElementById('dark-mode-toggle');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const sortDropdown = document.getElementById('sort-dropdown');
 
+// Setup Modal Elements
+const setupModal = document.getElementById('setup-modal');
+const apiKeyInput = document.getElementById('api-key-input');
+const saveKeyBtn = document.getElementById('save-key-btn');
+
 // State Variables
 let forecastDays = [];
 let currentFilter = "all";
 let currentSort = "default";
+let userApiKey = localStorage.getItem('openweather_key') || "";
+
+// Initialize App
+window.onload = () => {
+    checkSetup();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const { latitude, longitude } = position.coords;
+                if (!getEffectiveKey()) return;
+                try {
+                    showLoading(true);
+                    const res = await fetch(`${BASE_URL}weather?lat=${latitude}&lon=${longitude}&appid=${getEffectiveKey()}&units=metric`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        getWeatherData(data.name);
+                        cityInput.value = data.name;
+                    }
+                } catch (err) { console.log(err); } finally { showLoading(false); }
+            }
+        );
+    }
+};
+
+function checkSetup() {
+    // If no hardcoded key AND no local key, show setup
+    if ((!API_KEY || API_KEY === "YOUR_API_KEY_HERE") && !userApiKey) {
+        setupModal.classList.remove('hidden');
+    } else {
+        setupModal.classList.add('hidden');
+    }
+}
+
+function getEffectiveKey() {
+    return (API_KEY && API_KEY !== "YOUR_API_KEY_HERE") ? API_KEY : userApiKey;
+}
+
+saveKeyBtn.addEventListener('click', () => {
+    const key = apiKeyInput.value.trim();
+    if (key.length > 20) {
+        localStorage.setItem('openweather_key', key);
+        userApiKey = key;
+        setupModal.classList.add('fade-out');
+        setTimeout(() => {
+            setupModal.classList.add('hidden');
+            location.reload(); // Refresh to start fresh with new key
+        }, 500);
+    } else {
+        alert("Please enter a valid API key.");
+    }
+});
 
 // Event Listeners
 searchBtn.addEventListener('click', () => {
     const city = cityInput.value.trim();
-    if (city) {
-        getWeatherData(city);
-    }
+    if (city) getWeatherData(city);
 });
 
 cityInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         const city = cityInput.value.trim();
-        if (city) {
-            getWeatherData(city);
-        }
+        if (city) getWeatherData(city);
     }
 });
 
 darkModeToggle.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     const isDarkMode = document.body.classList.contains('dark-mode');
-    darkModeToggle.textContent = isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+    darkModeToggle.innerHTML = isDarkMode ? '☀️ Light' : '🌙 Dark';
 });
 
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        // Active highlight
-        filterBtns.forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        
-        currentFilter = e.target.dataset.filter;
-        renderForecastCards();
-    });
-});
+// Added: Reset Key Functionality
+function resetApiKey() {
+    localStorage.removeItem('openweather_key');
+    location.reload();
+}
 
-sortDropdown.addEventListener('change', (e) => {
-    currentSort = e.target.value;
-    renderForecastCards();
-});
+// Attach reset to a hidden double-click or just add a link in README.
+// Actually, let's keep it simple for now.
 
 // Main Function to Fetch All Weather Data
 async function getWeatherData(city) {
-    // Basic API key check
-    if (!API_KEY || API_KEY === "YOUR_API_KEY_HERE") {
-        showError("Invalid API Key. Please add your OpenWeatherMap key to config.js");
+    const activeKey = getEffectiveKey();
+    if (!activeKey) {
+        checkSetup();
         return;
     }
 
     try {
-        // Show loading state, hide previous dashboard or initial state
         showLoading(true);
         clearError();
 
-        // Fetch Current Weather
-        const currentRes = await fetch(`${BASE_URL}weather?q=${city}&appid=${API_KEY}&units=metric`);
-        if (currentRes.status === 401) {
-            throw new Error("Invalid API Key. Please verify your email or wait for activation.");
-        }
-        if (!currentRes.ok) throw new Error("City not found. Please try again.");
+        const currentRes = await fetch(`${BASE_URL}weather?q=${city}&appid=${activeKey}&units=metric`);
+        if (currentRes.status === 401) throw new Error("Key Invalid. Please update your API key.");
+        if (!currentRes.ok) throw new Error("City not found.");
         const currentData = await currentRes.json();
 
-        // Fetch 5-Day Forecast
-        const forecastRes = await fetch(`${BASE_URL}forecast?q=${city}&appid=${API_KEY}&units=metric`);
-        if (!forecastRes.ok) throw new Error("Could not fetch forecast.");
+        const forecastRes = await fetch(`${BASE_URL}forecast?q=${city}&appid=${activeKey}&units=metric`);
         const forecastData = await forecastRes.json();
 
-        // Update UI
         updateCurrentWeatherUI(currentData);
         updateForecastUI(forecastData);
         
-        // Finalize visibility
         weatherDashboard.classList.remove('hidden');
         initialState.classList.add('hidden');
         
@@ -99,6 +136,20 @@ async function getWeatherData(city) {
         showLoading(false);
     }
 }
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentFilter = e.target.dataset.filter;
+        renderForecastCards();
+    });
+});
+
+sortDropdown.addEventListener('change', (e) => {
+    currentSort = e.target.value;
+    renderForecastCards();
+});
 
 // Function to Update Current Weather Information
 function updateCurrentWeatherUI(data) {
