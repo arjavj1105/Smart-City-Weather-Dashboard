@@ -20,10 +20,17 @@ function injectApiKey() {
     }
 
     // Replace the API_KEY value regardless of what's currently there
-    const updatedContent = content.replace(/const API_KEY = ["'].*["'];/, `const API_KEY = "${apiKey}";`);
+    const regex = /const API_KEY = ["'].*["'];/;
+    if (!content.match(regex)) {
+        console.error('❌ Error: Could not find "const API_KEY = ..." pattern in config.js');
+        process.exit(1);
+    }
+
+    const updatedContent = content.replace(regex, `const API_KEY = "${apiKey}";`);
     
     fs.writeFileSync(configPath, updatedContent);
-    console.log('✅ Successfully injected API_KEY into config.js for deployment.');
+    console.log('✅ Successfully injected API_KEY into config.js.');
+    console.log('Key length injected:', apiKey.length, 'characters');
 }
 
 injectApiKey();
