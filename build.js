@@ -12,11 +12,11 @@ function injectApiKey() {
 
     let content = fs.readFileSync(configPath, 'utf8');
     const apiKey = process.env.OPENWEATHER_API_KEY;
-
+    
     if (!apiKey) {
-        console.warn('⚠️ Warning: OPENWEATHER_API_KEY environment variable is not set.');
-        console.warn('The dashboard will use the default placeholder.');
-        return;
+        console.error('❌ Error: OPENWEATHER_API_KEY environment variable is not set in Vercel!');
+        console.error('Please add it in Settings > Environment Variables.');
+        process.exit(1);
     }
 
     // Replace the API_KEY value regardless of what's currently there
