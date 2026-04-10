@@ -39,7 +39,7 @@ To process the array of forecast data efficiently, I used the following JavaScri
 
 ---
 
-## 🚀 How to Run Locally
+### 🚀 How to Run Locally
 
 Since this is a static frontend application, you don't need any complex build tools to test it. 
 
@@ -59,7 +59,21 @@ Since this is a static frontend application, you don't need any complex build to
 
 3. **Run the App:**
    - Just double-click the `index.html` file to open it in your browser!
-   - *(Optional)* You can also use an extension like VS Code Live Server for a smoother development experience.
+   - *(Optional)* You can also use an extension like VS Code Live Server or run `npm start` if you have Node.js installed.
+
+---
+
+## ☁️ Deploying to Vercel
+
+To keep your API key secure and avoid committing it to GitHub, we've added a build step for Vercel:
+
+1.  **Open Vercel Dashboard**: Go to your project settings on Vercel.
+2.  **Environment Variables**: Add a new environment variable:
+    - **Key**: `OPENWEATHER_API_KEY`
+    - **Value**: Your actual API key from OpenWeatherMap.
+3.  **Redeploy**: Trigger a new deployment. The build script will automatically inject your key into `config.js` during the deployment phase.
+
+This way, your local `config.js` can stay with the placeholder (or your personal key) without exposing it publicly in the repository.
 
 ---
 

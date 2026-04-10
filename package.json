@@ -1,0 +1,13 @@
+{
+  "name": "smart-city-weather-dashboard",
+  "version": "1.0.0",
+  "description": "Smart City Weather Dashboard for Milestone 4",
+  "main": "script.js",
+  "scripts": {
+    "build": "node build.js",
+    "start": "npx serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

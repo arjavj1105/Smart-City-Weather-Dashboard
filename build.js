@@ -1,0 +1,29 @@
+const fs = require('fs');
+const path = require('path');
+
+// Replaces the placeholder API_KEY in config.js with the actual 
+// environment variable provided during Vercel's build process.
+function injectApiKey() {
+    const configPath = path.join(__dirname, 'config.js');
+    if (!fs.existsSync(configPath)) {
+        console.error('config.js not found!');
+        process.exit(1);
+    }
+
+    let content = fs.readFileSync(configPath, 'utf8');
+    const apiKey = process.env.OPENWEATHER_API_KEY;
+
+    if (!apiKey) {
+        console.warn('⚠️ Warning: OPENWEATHER_API_KEY environment variable is not set.');
+        console.warn('The dashboard will use the default placeholder.');
+        return;
+    }
+
+    // Replace the API_KEY value regardless of what's currently there
+    const updatedContent = content.replace(/const API_KEY = ["'].*["'];/, `const API_KEY = "${apiKey}";`);
+    
+    fs.writeFileSync(configPath, updatedContent);
+    console.log('✅ Successfully injected API_KEY into config.js for deployment.');
+}
+
+injectApiKey();
