@@ -140,62 +140,6 @@ h1 {
     filter: brightness(1.1);
 }
 
-/* Setup Modal Styling */
-.setup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(12px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.setup-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 40px;
-    max-width: 400px;
-    text-align: center;
-    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-@keyframes slideUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.setup-icon { font-size: 3rem; margin-bottom: 20px; }
-.setup-card p { font-size: 0.95rem; color: var(--text-dim); margin: 15px 0 25px; line-height: 1.6; }
-
-#api-key-input {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid var(--glass-border);
-    padding: 14px;
-    border-radius: 12px;
-    color: white;
-    margin-bottom: 20px;
-}
-
-#save-key-btn {
-    width: 100%;
-    padding: 14px;
-    background: white;
-    color: black;
-    border-radius: 12px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.get-key-link { display: block; margin-top: 20px; font-size: 0.8rem; color: var(--primary); text-decoration: none; font-weight: 600; }
-
 /* Dashboard Sections */
 .fade-in { animation: fadeIn 1s ease-out; }
 @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
