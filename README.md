@@ -1,93 +1,81 @@
 # 🌦️ Smart City Weather Dashboard
 
-A simple and interactive weather web app that shows real-time weather data along with smart insights like "What to Wear" suggestions based on conditions.
+Hello! Welcome to my final project: the **Smart City Weather Dashboard**. I built this web application to help users easily check the current weather and a 5-day forecast for any city around the world. It includes features like geolocation detection, interactive filtering, and sorting to make checking the weather fun and easy!
+
+### 🌍 Live Demo
+[Click here to view the live project](https://your-deployment-link.vercel.app) *(Replace with your actual link after deployment)*
 
 ---
 
-## 🔗 Live Demo
-
-👉 (Add your deployed link here)
-
----
-
-## 💡 About the Project
-
-This project was built to understand how real-world web applications work using APIs and JavaScript.
-
-Instead of just showing temperature, this app gives a better user experience by:
-- Showing a 5-day forecast
-- Providing weather-based suggestions
-- Allowing users to filter and sort data
-- Supporting dark mode
+## 📌 Project Overview
+The main goal of this dashboard is to provide a clean and intuitive way to consume weather data. Instead of just displaying a plain list of temperatures, I added interactive elements that allow you to filter the forecast by conditions (like rainy or hot) and sort them based on temperature or day. The app also features a dynamic background that changes based on the current weather and a dark mode toggle for better accessibility!
 
 ---
 
-## ⚙️ Features
-
-### 🌍 Weather Data
-- Search weather by city name
-- Automatically detect user location using Geolocation API
-- Display current weather (temperature, humidity, wind speed)
-- Show 5-day forecast
-
----
-
-### 🔍 Interactivity (Milestone 3)
-
-#### 🔎 Search
-- Users can search any city
-
-#### 🎯 Filtering (using `filter()`)
-- Filter forecast by:
-  - Rainy
-  - Cloudy
-  - Hot (≥ 30°C)
-  - Cold (< 20°C)
-
-#### 🔃 Sorting (using `sort()`)
-- Sort forecast by:
-  - Temperature (High → Low)
-  - Temperature (Low → High)
-  - Day (A → Z)
-
-#### 🎨 Dynamic Rendering (using `map()`)
-- Forecast cards are generated dynamically using `map()`
-
-#### 🌙 Dark Mode
-- Toggle between light and dark theme
+## ✨ Features
+Here represents the core functionality of the dashboard:
+- **Search by City**: Type in any city name to get real-time weather data.
+- **Current Weather**: Displays the temperature, humidity, wind speed, and weather condition.
+- **5-Day Forecast**: Shows a daily summary of the upcoming weather.
+- **Geolocation Detection**: Automatically detects your location and shows your local weather on load.
+- **Forecast Filtering**: Easily filter the upcoming days by weather condition (Rainy, Cloudy, Hot, Cold).
+- **Forecast Sorting**: Reorder the forecast cards (Default, Temp High-Low, Temp Low-High, Day A-Z).
+- **Dark Mode Toggle**: Switch between light and dark themes seamlessly.
+- **Responsive Design**: Looks great on both desktop and mobile screens.
 
 ---
 
-## 🧠 Concepts Used
+## 🛠️ Technical Details
 
-- Fetch API for API calls
-- JavaScript Array Higher Order Functions:
-  - `map()`
-  - `filter()`
-  - `sort()`
-- DOM Manipulation
-- Event Handling
-- Responsive Design
+### Higher Order Functions Used
+To process the array of forecast data efficiently, I used the following JavaScript array methods:
+- **`map()`**: Used to transform the raw API data array into clean, structured objects, and then map those objects into HTML strings to render the forecast cards.
+- **`filter()`**: Used to pick out one specific forecast time per day (12:00 PM) from the API's 3-hour interval data. It is also used in the interactive UI to filter the days based on conditions (e.g., finding only "rainy" days).
+- **`sort()`**: Used to organize the forecast cards based on the user's selection from the dropdown (e.g., sorting temperatures from high to low).
 
----
-
-## 🔌 API Used
-
-- OpenWeatherMap API  
-👉 https://openweathermap.org/api
-
----
-
-## 🛠️ Tech Stack
-
-- HTML
-- CSS
-- JavaScript (Vanilla JS)
+### API & Tech Stack
+- **API**: [OpenWeatherMap API](https://openweathermap.org/api) (Data logic for Current Weather & 5-Day Forecast)
+- **Tech Stack**: HTML5, CSS3, Vanilla JavaScript (No build tools required!)
 
 ---
 
 ## 🚀 How to Run Locally
 
-1. Clone the repository:
-```bash
-git clone https://github.com/arjavj1105/Smart-City-Weather-Dashboard.git
+Since this is a static frontend application, you don't need any complex build tools to test it. 
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/Smart-City-Weather-Dashboard.git
+   cd Smart-City-Weather-Dashboard
+   ```
+
+2. **Add your API Key:**
+   - Go to [OpenWeatherMap](https://openweathermap.org/) and create a free account to get an API key.
+   - Open the `config.js` file in your code editor.
+   - Replace `"YOUR_API_KEY_HERE"` with your actual API key:
+     ```javascript
+     const API_KEY = "YOUR_VERIFIED_API_KEY";
+     ```
+
+3. **Run the App:**
+   - Just double-click the `index.html` file to open it in your browser!
+   - *(Optional)* You can also use an extension like VS Code Live Server for a smoother development experience.
+
+---
+
+## 🧠 What I Learned
+Building this app was a huge learning experience. Working with the OpenWeatherMap API taught me a lot about handling asynchronous data using `async/await` and working around different JSON payload structures. Most importantly, integrating array methods like `map()`, `filter()`, and `sort()` really showed me how powerful Vanilla JavaScript can be for manipulating DOM elements without needing heavy frameworks. I also learned a lot about organizing code to keep it maintainable.
+
+---
+
+## 🔮 Future Improvements
+If I have time to expand this project further, I would like to:
+- Add an hourly forecast timeline.
+- Implement an autocomplete feature for the city search input.
+- Add local storage so the application remembers your last searched city and theme preference.
+
+---
+
+## 👨‍💻 Author
+**Student Developer**
+Built with ❤️ for my final JavaScript project submission.

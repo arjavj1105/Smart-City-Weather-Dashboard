@@ -62,7 +62,7 @@ sortDropdown.addEventListener('change', (e) => {
 // Main Function to Fetch All Weather Data
 async function getWeatherData(city) {
     // Basic API key check
-    if (!API_KEY || API_KEY === "PLEASE_ADD_YOUR_API_KEY_HERE") {
+    if (!API_KEY || API_KEY === "YOUR_API_KEY_HERE") {
         showError("Invalid API Key. Please add your OpenWeatherMap key to config.js");
         return;
     }
@@ -72,7 +72,7 @@ async function getWeatherData(city) {
         showLoading(true);
         clearError();
 
-        // 1. Fetch Current Weather
+        // Fetch Current Weather
         const currentRes = await fetch(`${BASE_URL}weather?q=${city}&appid=${API_KEY}&units=metric`);
         if (currentRes.status === 401) {
             throw new Error("Invalid API Key. Please verify your email or wait for activation.");
@@ -80,12 +80,12 @@ async function getWeatherData(city) {
         if (!currentRes.ok) throw new Error("City not found. Please try again.");
         const currentData = await currentRes.json();
 
-        // 2. Fetch 5-Day Forecast
+        // Fetch 5-Day Forecast
         const forecastRes = await fetch(`${BASE_URL}forecast?q=${city}&appid=${API_KEY}&units=metric`);
         if (!forecastRes.ok) throw new Error("Could not fetch forecast.");
         const forecastData = await forecastRes.json();
 
-        // 3. Update UI
+        // Update UI
         updateCurrentWeatherUI(currentData);
         updateForecastUI(forecastData);
         
@@ -139,7 +139,7 @@ function updateForecastUI(data) {
     renderForecastCards();
 }
 
-// Render Function - Uses filter, sort, and map to display cards
+// Render Function for Forecast Cards
 function renderForecastCards() {
     let processedData = [...forecastDays];
 
@@ -180,14 +180,14 @@ function renderForecastCards() {
     forecastContainer.innerHTML = htmlCards;
 }
 
-// Geolocation Integration (Task 9)
+// Initialize app and request geolocation
 window.onload = () => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             async (position) => {
                 const { latitude, longitude } = position.coords;
                 // Basic API key check for geolocation too
-                if (!API_KEY || API_KEY === "PLEASE_ADD_YOUR_API_KEY_HERE") return;
+                if (!API_KEY || API_KEY === "YOUR_API_KEY_HERE") return;
 
                 try {
                     showLoading(true);
