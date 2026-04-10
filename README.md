@@ -3,7 +3,7 @@
 Hello! Welcome to my final project: the **Smart City Weather Dashboard**. I built this web application to help users easily check the current weather and a 5-day forecast for any city around the world. It includes features like geolocation detection, interactive filtering, and sorting to make checking the weather fun and easy!
 
 ### 🌍 Live Demo
-[Click here to view the live project](https://your-deployment-link.vercel.app) *(Replace with your actual link after deployment)*
+[Click here to view the live project](https://smart-city-weather-dashboard-eta.vercel.app)
 
 ---
 
